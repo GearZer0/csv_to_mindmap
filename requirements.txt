@@ -3,4 +3,3 @@ numpy
 xlrd
 networkx
 pillow
-pygraphviz
