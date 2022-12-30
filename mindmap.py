@@ -28,8 +28,8 @@ G.node_attr["fontname"] = "Calibri"
 G.edge_attr["colorscheme"] = COLOR_SCHEME
 G.edge_attr["penwidth"] = "10"
 
-
-if(FILE_TYPE == "xls"):
+# checking if file tpye is xlsx or csv. return message if it is not
+if(FILE_TYPE == "xlsx"):
     df = pd.read_excel(FILE_NAME_TYPE)
 elif(FILE_TYPE == "csv"):
     df = pd.read_csv(FILE_NAME_TYPE)
