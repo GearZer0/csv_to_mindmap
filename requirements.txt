@@ -3,3 +3,4 @@ numpy
 xlrd
 networkx
 pillow
+graphviz
