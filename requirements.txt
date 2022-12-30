@@ -4,3 +4,4 @@ xlrd
 networkx
 pillow
 graphviz
+openpyxl
