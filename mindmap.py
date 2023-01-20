@@ -2,13 +2,16 @@ import pandas as pd
 import sys
 from graphviz import Digraph
 
-COLOR_SCHEME = "accent8"
+COLOR_SCHEME = "piyg6"
 
-FILE_NAME_TYPE = "data2.xls" if len(sys.argv) < 2 else sys.argv[1]
+FILE_NAME_TYPE = "sample.xls" if len(sys.argv) < 2 else sys.argv[1]
 FILE_NAME = FILE_NAME_TYPE.split(".")[0]
 FILE_TYPE = FILE_NAME_TYPE.split(".")[-1]
 
 G = Digraph(format='png')
+G.graph_attr["bgcolor"] = "#2980b9:#6dd5fa"
+G.graph_attr["gradientangle"] = "90"
+G.graph_attr["ranksep"]="3"
 G.graph_attr["strict"]="False"
 G.graph_attr["directed"]="True"
 G.graph_attr["label"]=FILE_NAME
@@ -17,19 +20,20 @@ G.graph_attr["fontname"]="Bahnschrift SemiBold SemiConden"
 
 
 # Nodes design attributes
-G.node_attr["shape"] = "circle"
+G.node_attr["shape"] = "rectangle"
 G.node_attr["colorscheme"] = COLOR_SCHEME
 G.node_attr["style"] = "filled"
 G.node_attr["fontsize"] = "50"
-G.node_attr["fontname"] = "Calibri"
+G.node_attr["fontname"] = "Calibri Bold"
 
 
 # Edge design attributes
 G.edge_attr["colorscheme"] = COLOR_SCHEME
 G.edge_attr["penwidth"] = "10"
 
-# checking if file tpye is xlsx or csv. return message if it is not
-if(FILE_TYPE == "xlsx"):
+
+
+if(FILE_TYPE == "xls"):
     df = pd.read_excel(FILE_NAME_TYPE)
 elif(FILE_TYPE == "csv"):
     df = pd.read_csv(FILE_NAME_TYPE)
@@ -58,8 +62,9 @@ for index, row in df.iterrows():
         if tup not in pairs:
             pairs.append(tup)
             G.edge(filtered_columns[column],filtered_columns[column+1], color=color_index)
-            G.node(filtered_columns[column],color=color_index)
+            G.node(filtered_columns[column],fillcolor=color_index)
 
-    G.node(filtered_columns[-1], color=color_index)
+    G.node(filtered_columns[-1], fillcolor=color_index)
 
+G = G.unflatten(stagger=5)  
 G.render(FILE_NAME, view=True)
